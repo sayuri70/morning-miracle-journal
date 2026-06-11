@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>創造我的早晨奇蹟</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap');
+
+  :root {
+    --green-deep: #23613A;
+    --green-mid: #2E8B4A;
+    --green-light: #5DB075;
+    --green-pale: #D4EDDA;
+    --green-bg: #F0F7F2;
+    --cream: #FFFDF7;
+    --gold: #C4A35A;
+    --gold-light: #F0E6CC;
+    --text-dark: #1A3D2A;
+    --text-mid: #3D6B4F;
+    --text-light: #7BA68D;
+    --shadow: rgba(35, 97, 58, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--green-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .header {
+    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(93,176,117,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .header h1 {
+    font-family: 'Noto Serif TC', serif;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    position: relative;
+  }
+  .header .leaf { font-size: 1.5rem; display: inline-block; margin: 0 0.3rem; }
+  .header p {
+    color: #fff;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    position: relative;
+    opacity: 0.85;
+  }
+
+  .streak-card {
+    max-width: 520px;
+    margin: -0.5rem auto 0;
+    padding: 0 1.5rem;
+  }
+  .streak-inner {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: 0 4px 20px var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .streak-inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green-deep), var(--green-light), var(--green-deep));
+  }
+  .plant-visual {
+    width: 80px;
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .plant-svg { width: 100%; height: 100%; }
+  .streak-info { flex: 1; }
+  .streak-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.2rem;
+  }
+  .streak-number {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    line-height: 1.1;
+  }
+  .streak-number span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    margin-left: 0.2rem;
+  }
+  .streak-msg {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+  }
+
+  .calendar-view { padding: 1.5rem; max-width: 520px; margin: 0 auto; }
+
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+  }
+  .cal-nav button {
+    background: var(--cream);
+    border: 1.5px solid var(--green-light);
+    color: var(--green-deep);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cal-nav button:hover {
+    background: var(--green-deep);
+    color: #fff;
+    border-color: var(--green-deep);
+  }
+  .cal-nav .month-label {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .cal-grid .weekday {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+    padding: 0.3rem 0;
+  }
+  .cal-grid .day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--cream);
+    border: 1.5px solid transparent;
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  .cal-grid .day-cell:hover {
+    border-color: var(--green-light);
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .cal-grid .day-cell.today {
+    border-color: var(--gold);
+    background: var(--gold-light);
+    font-weight: 700;
+  }
+  .cal-grid .day-cell.has-entry {
+    background: var(--green-pale);
+    border-color: var(--green-light);
+  }
+  .cal-grid .day-cell.has-entry::after {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    position: absolute;
+    bottom: 5px;
+  }
+  .cal-grid .day-cell.empty {
+    background: transparent;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* Report Button */
+  .report-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 520px;
+    margin: 0.8rem auto 0;
+    padding: 0.75rem;
+    background: var(--cream);
+    border: 1.5px solid var(--green-light);
+    border-radius: 12px;
+    color: var(--green-deep);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .report-btn:hover {
+    background: var(--green-deep);
+    color: #fff;
+    border-color: var(--green-deep);
+  }
+  .report-wrapper { padding: 0 1.5rem; max-width: calc(520px + 3rem); margin: 0 auto; }
+
+  /* Report Modal */
+  .report-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    animation: fadeIn 0.2s ease;
+  }
+  .report-overlay.show { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .report-modal {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    max-width: 480px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .report-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--text-light);
+    cursor: pointer;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .report-close:hover { background: var(--green-pale); color: var(--green-deep); }
+
+  .report-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    margin-bottom: 1.2rem;
+  }
+
+  .report-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .report-stat {
+    background: var(--green-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .report-stat.wide { grid-column: 1 / -1; }
+  .report-stat-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--green-deep);
+  }
+  .report-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-mid);
+    margin-top: 0.2rem;
+  }
+
+  .report-section-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+    margin-top: 0.5rem;
+  }
+  .report-activity {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--green-pale);
+  }
+  .report-activity:last-child { border-bottom: none; }
+  .report-activity-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--green-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .report-activity-info { flex: 1; }
+  .report-activity-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+  .report-activity-detail {
+    font-size: 0.75rem;
+    color: var(--text-light);
+  }
+  .report-activity-count {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--green-deep);
+  }
+  .report-activity-unit {
+    font-size: 0.7rem;
+    color: var(--text-light);
+  }
+  .report-empty {
+    text-align: center;
+    color: var(--text-light);
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .report-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .report-bar-label {
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .report-bar-track {
+    flex: 1;
+    height: 18px;
+    background: var(--green-pale);
+    border-radius: 9px;
+    overflow: hidden;
+  }
+  .report-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-deep), var(--green-mid));
+    border-radius: 9px;
+    transition: width 0.5s ease;
+    min-width: 2px;
+  }
+  .report-bar-val {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--green-deep);
+    width: 36px;
+    flex-shrink: 0;
+  }
+
+  .entry-view {
+    display: none;
+    padding: 1.5rem;
+    max-width: 520px;
+    margin: 0 auto;
+    animation: slideIn 0.35s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    color: var(--green-deep);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .back-btn:hover { color: var(--green-mid); }
+
+  .entry-date {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    margin-bottom: 1rem;
+  }
+
+  .quote-card {
+    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 12px;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.1);
+    font-family: 'Georgia', serif;
+    line-height: 1;
+  }
+  .quote-card .quote-text {
+    color: #fff;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+  }
+  .quote-card .quote-author {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    text-align: right;
+    position: relative;
+    z-index: 1;
+  }
+  .quote-card .quote-icon {
+    position: absolute;
+    bottom: 10px; right: 15px;
+    font-size: 1.5rem;
+    opacity: 0.3;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+  .routine-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .routine-slot {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 0.5rem;
+    border: 1.5px solid var(--green-pale);
+    transition: border-color 0.2s;
+  }
+  .routine-slot:focus-within { border-color: var(--green-mid); }
+  .routine-slot .slot-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--green-pale);
+    color: var(--green-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .routine-slot input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-family: 'Noto Sans TC', sans-serif;
+    outline: none;
+    padding: 0.4rem 0;
+  }
+  .routine-slot input::placeholder { color: var(--text-light); font-weight: 300; }
+
+  .reflection-area {
+    background: var(--cream);
+    border-radius: 16px;
+    border: 1.5px solid var(--green-pale);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .reflection-area:focus-within { border-color: var(--green-mid); }
+  .reflection-area textarea {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-family: 'Noto Sans TC', sans-serif;
+    outline: none;
+    resize: none;
+    min-height: 120px;
+    line-height: 1.8;
+  }
+  .reflection-area textarea::placeholder { color: var(--text-light); font-weight: 300; }
+
+  .save-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+  }
+  .save-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px var(--shadow); }
+  .save-btn:active { transform: translateY(0); }
+
+  .save-toast {
+    text-align: center;
+    color: var(--green-mid);
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    margin-bottom: 1rem;
+  }
+  .save-toast.show { opacity: 1; }
+
+  .delete-btn {
+    width: 100%;
+    padding: 0.6rem;
+    background: transparent;
+    color: var(--text-light);
+    border: 1px dashed var(--text-light);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 2rem;
+  }
+  .delete-btn:hover { color: #c0392b; border-color: #c0392b; }
+
+  /* ── Sync ── */
+  .sync-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    position: relative;
+  }
+  .sync-bar:hover { color: #fff; }
+  .sync-bar .sync-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+  }
+  .sync-bar .sync-dot.connected { background: #5DB075; }
+  .sync-bar .sync-dot.syncing { background: #F7DC6F; animation: pulse 1s infinite; }
+  .sync-bar .sync-dot.error { background: #E74C3C; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .sync-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .sync-modal-overlay.show { display: flex; }
+  .sync-modal {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    max-width: 420px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+  .sync-modal h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    color: var(--green-deep);
+    margin-bottom: 1rem;
+  }
+  .sync-modal p {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .sync-modal input[type="text"] {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--green-pale);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-family: monospace;
+    color: var(--text-dark);
+    outline: none;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+  .sync-modal input[type="text"]:focus { border-color: var(--green-mid); }
+  .sync-modal .sync-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .sync-modal .sync-actions button {
+    flex: 1;
+    padding: 0.7rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sync-save-btn {
+    background: var(--green-deep);
+    color: #fff;
+    border: none;
+  }
+  .sync-save-btn:hover { background: var(--green-mid); }
+  .sync-cancel-btn {
+    background: transparent;
+    color: var(--text-light);
+    border: 1.5px solid var(--green-pale);
+  }
+  .sync-cancel-btn:hover { border-color: var(--text-light); }
+  .sync-status-msg {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    text-align: center;
+    margin-top: 0.8rem;
+    min-height: 1.2em;
+  }
+  .sync-disconnect {
+    display: block;
+    margin: 1rem auto 0;
+    background: none;
+    border: none;
+    color: #c0392b;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .sync-disconnect:hover { text-decoration: underline; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem 1.5rem;
+    border-top: 1px solid var(--green-pale);
+    margin-top: 1rem;
+  }
+  .footer .brand {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--green-deep);
+    letter-spacing: 0.1em;
+  }
+  .footer .slogan {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-top: 0.4rem;
+    letter-spacing: 0.08em;
+  }
+
+  @media (min-width: 600px) {
+    .header h1 { font-size: 2.2rem; }
+    .cal-grid .day-cell { font-size: 1rem; }
+    .entry-view, .calendar-view { padding: 2rem; }
+    .streak-card { padding: 0 2rem; }
+    .report-wrapper { padding: 0 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1><span class="leaf">🌿</span> 創造我的早晨奇蹟 <span class="leaf">🌿</span></h1>
+  <p>畫植物，除了愛植物，也更愛自己。</p>
+  <div class="sync-bar" id="syncBar" title="點擊設定同步">
+    <div class="sync-dot" id="syncDot"></div>
+    <span id="syncLabel">⚙️ 設定同步</span>
+  </div>
+</div>
+
+<div class="streak-card" id="streakCard">
+  <div class="streak-inner">
+    <div class="plant-visual" id="plantVisual"></div>
+    <div class="streak-info">
+      <div class="streak-label">連續早起天數</div>
+      <div class="streak-number" id="streakNumber">0<span>天</span></div>
+      <div class="streak-msg" id="streakMsg">開始記錄你的第一天吧！</div>
+    </div>
+  </div>
+</div>
+
+<div class="calendar-view" id="calendarView">
+  <div class="cal-nav">
+    <button id="prevMonth" aria-label="上個月">‹</button>
+    <div class="month-label" id="monthLabel"></div>
+    <button id="nextMonth" aria-label="下個月">›</button>
+  </div>
+  <div class="cal-grid" id="calGrid"></div>
+  <div class="report-wrapper">
+    <button class="report-btn" id="reportBtn">📊 本月早晨月報</button>
+  </div>
+</div>
+
+<!-- Report Modal -->
+<div class="report-overlay" id="reportOverlay">
+  <div class="report-modal">
+    <button class="report-close" id="reportClose">✕</button>
+    <div id="reportContent"></div>
+  </div>
+</div>
+
+<!-- Entry View -->
+<div class="entry-view" id="entryView">
+  <button class="back-btn" id="backBtn">← 回到行事曆</button>
+  <div class="entry-date" id="entryDate"></div>
+
+  <div class="quote-card">
+    <div class="quote-text" id="quoteText"></div>
+    <div class="quote-author" id="quoteAuthor"></div>
+    <div class="quote-icon">🌱</div>
+  </div>
+
+  <div class="section-label">我的早晨儀式</div>
+  <div class="routine-slots">
+    <div class="routine-slot">
+      <div class="slot-num">1</div>
+      <input type="text" id="slot1" placeholder="例：5:30 起床洗澡、煮咖啡">
+    </div>
+    <div class="routine-slot">
+      <div class="slot-num">2</div>
+      <input type="text" id="slot2" placeholder="例：6:00 想社群貼文">
+    </div>
+    <div class="routine-slot">
+      <div class="slot-num">3</div>
+      <input type="text" id="slot3" placeholder="例：6:30 冥想、寫日記">
+    </div>
+    <div class="routine-slot">
+      <div class="slot-num">4</div>
+      <input type="text" id="slot4" placeholder="例：7:00 吃早餐、出門">
+    </div>
+  </div>
+
+  <div class="section-label">今天的日記心得</div>
+  <div class="reflection-area">
+    <textarea id="reflection" placeholder="今天早上有什麼感受？做了什麼讓你開心的事？寫下來吧 ✨"></textarea>
+  </div>
+
+  <button class="save-btn" id="saveBtn">儲存今天的紀錄</button>
+  <div class="save-toast" id="saveToast">已儲存 ✨ 你的早晨奇蹟正在發生！</div>
+  <button class="delete-btn" id="deleteBtn">清除這天的紀錄</button>
+</div>
+
+<!-- Sync Modal -->
+<div class="sync-modal-overlay" id="syncModal">
+  <div class="sync-modal">
+    <h3 id="syncModalTitle">🔗 設定跨裝置同步</h3>
+    <div id="syncModalBody">
+      <p>輸入你的 GitHub Personal Access Token（PAT），日記資料就能在手機和電腦之間自動同步。</p>
+      <p>如果你之前在顯化日記已經建過 PAT，可以直接用同一組。</p>
+      <input type="text" id="syncPatInput" placeholder="貼上你的 GitHub PAT（ghp_...）">
+      <div class="sync-actions">
+        <button class="sync-cancel-btn" id="syncCancelBtn">取消</button>
+        <button class="sync-save-btn" id="syncSaveBtn">連結同步</button>
+      </div>
+      <div class="sync-status-msg" id="syncStatusMsg"></div>
+    </div>
+    <div id="syncConnectedBody" style="display:none">
+      <p>✅ 同步已連結！你的日記資料會自動在不同裝置之間同步。</p>
+      <p style="font-size:0.8rem;color:var(--text-light)">Gist ID：<span id="syncGistIdDisplay" style="font-family:monospace"></span></p>
+      <div class="sync-actions">
+        <button class="sync-cancel-btn" id="syncDoneBtn">關閉</button>
+        <button class="sync-save-btn" id="syncNowBtn">立即同步</button>
+      </div>
+      <button class="sync-disconnect" id="syncDisconnectBtn">解除同步連結</button>
+      <div class="sync-status-msg" id="syncStatusMsg2"></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="brand">VerdiaLab ｜ 花開植感美學實驗室</div>
+  <div class="slogan">你值得擁有豐盛的每一天</div>
+</div>
+
+<script>
+const quotes = [
+  { text: "你今天的選擇，正在重寫你的人生劇本。", author: "" },
+  { text: "冒牌者不會凌晨五點起床追夢，但你會。", author: "" },
+  { text: "你的不安，恰恰證明你是認真的那個人。", author: "" },
+  { text: "做你害怕的事，害怕就會消失。", author: "Ralph Waldo Emerson" },
+  { text: "你不是在假裝，你是在練習成為更好的自己。", author: "" },
+  { text: "別人的花園再美，也種不出屬於你的那朵花。", author: "" },
+  { text: "萬物皆有裂縫，那是光照進來的地方。", author: "Leonard Cohen" },
+  { text: "你已經撐過了一百個覺得自己不行的日子。", author: "" },
+  { text: "比起天賦，這個世界更獎勵那些不放棄的人。", author: "" },
+  { text: "如果你正在讀這句話，代表你選擇了不將就。", author: "" },
+  { text: "每個專家都曾經是初學者，你正走在路上。", author: "Helen Hayes" },
+  { text: "你不需要全世界的掌聲，先為自己鼓掌就好。", author: "" },
+  { text: "真正的勇敢是膝蓋在抖，但還是站了起來。", author: "" },
+  { text: "你今天起得比昨天的恐懼還早，這就是勝利。", author: "" },
+  { text: "種一棵樹最好的時間是十年前，其次是現在。", author: "中國諺語" },
+  { text: "豐盛不是等來的，是你每個清晨親手創造的。", author: "" },
+  { text: "你覺得自己不夠好？好的，那就邊不夠好邊做。", author: "" },
+  { text: "你的價值從來不是由最差的那一天決定的。", author: "" },
+  { text: "我不是因為厲害才開始，是因為開始才變厲害。", author: "" },
+  { text: "當你想放棄時，想想當初為什麼要開始。", author: "" },
+  { text: "你值得擁有不道歉的成功、不打折的人生。", author: "" },
+  { text: "成功不是關於完美，而是關於不輕言放棄。", author: "" },
+  { text: "不完美是你最美的入場券，因為那才是真的。", author: "" },
+  { text: "生活不是等暴風雨過去，而是學會在雨中跳舞。", author: "Vivian Greene" },
+  { text: "那些偷偷努力的日子，日後都會閃閃發光。", author: "" },
+  { text: "唯一能定義你天花板的人，是鏡子裡那個。", author: "" },
+  { text: "半途而廢的人永遠不會贏，贏的人不會放棄。", author: "Vince Lombardi" },
+  { text: "你離理想的自己，只差持續出現這件小事。", author: "" },
+  { text: "今天再小的一步，都是未來巨大改變的起點。", author: "" },
+  { text: "不是因為有希望才堅持，是因為堅持了才有希望。", author: "" },
+  { text: "你配得上你渴望的一切，這句話請讀三遍。", author: "" },
+  { text: "想都是問題，做才是答案，站起來就有路。", author: "" },
+  { text: "每天叫醒你的不是鬧鐘，是心裡那個不甘平凡的自己。", author: "" },
+  { text: "凡是殺不死我的，都使我更強大。", author: "尼采" },
+  { text: "所謂冒牌者症候群，是因為你給自己設了太高的標準。", author: "" },
+  { text: "你的故事還沒寫完，別急著在中間章節下結論。", author: "" },
+  { text: "重要的不是起點有多低，而是你每天都在爬。", author: "" },
+  { text: "你的溫柔是別人的勇氣，別小看自己的影響力。", author: "" },
+  { text: "成為你想看到的改變，從這個清晨開始。", author: "甘地" },
+  { text: "你不是在浪費時間摸索，你是在打地基。", author: "" },
+  { text: "那些讓你失眠的夢想，才是值得你早起去追的。", author: "" },
+  { text: "全世界只有一個你，這本身就是一種超能力。", author: "" },
+  { text: "永遠不要低估一個每天早起的人的爆發力。", author: "" },
+  { text: "天才是百分之一的靈感，加上百分之九十九的汗水。", author: "愛迪生" },
+  { text: "你此刻的不確定，正是成長的入場券。", author: "" },
+  { text: "別等到站上山頂才開心，沿途的風景一樣值得。", author: "" },
+  { text: "覺得自己做不到的時候，回頭看看你已經走多遠。", author: "" },
+  { text: "光是打開這一頁，你就已經贏過了躺在床上的自己。", author: "" },
+  { text: "你不必完美才能開始，但你必須開始才能進步。", author: "Zig Ziglar" },
+  { text: "今天的汗水，是明年的你會感謝的禮物。", author: "" },
+  { text: "你的努力也許沒人看見，但你的結果所有人都看得見。", author: "" },
+  { text: "害怕是正常的，害怕了還做才叫勇敢。", author: "" },
+  { text: "如果計畫行不通，那就換計畫，但別換目標。", author: "" },
+  { text: "你不需要別人的允許，就可以活成自己喜歡的樣子。", author: "" },
+  { text: "困難的路越走越容易，容易的路越走越難。", author: "" },
+  { text: "不是有了信心才行動，而是行動了才有信心。", author: "" },
+  { text: "你正在做的這件事，五年後的你會謝謝今天的自己。", author: "" },
+  { text: "與其花時間懷疑自己，不如花時間證明自己。", author: "" },
+  { text: "所有你羨慕的人生，都是別人拿不睡覺換來的。", author: "" },
+  { text: "當你覺得全世界都不相信你的時候，你要相信你自己。", author: "" },
+  { text: "機會不是等來的，是你準備好了它才出現的。", author: "" },
+  { text: "每一個了不起的成就，背後都有一段不為人知的堅持。", author: "" },
+  { text: "你不是運氣好，你是準備得夠久。", author: "" },
+  { text: "最強大的力量，是一個決定改變自己的人。", author: "" },
+  { text: "先完成，再完美，這是所有行動派的秘密。", author: "" },
+  { text: "你給自己的每一分鐘，都是對未來的投資。", author: "" },
+  { text: "別人怎麼看你是別人的事，你怎麼活是你的事。", author: "" },
+  { text: "沒有一條路是白走的，每一步都算數。", author: "" },
+  { text: "偉大的事不是靠衝動做出的，而是靠一連串的小事。", author: "梵谷" },
+  { text: "你的起點不決定你的終點，你的行動才會。", author: "" },
+  { text: "把每一個「我不會」改成「我正在學」。", author: "" },
+  { text: "早起的你比九成的人更接近自己的目標了。", author: "" },
+  { text: "你今天的一小步，就是你人生的一大步。", author: "" },
+  { text: "如果夢想不會讓你害怕，那它還不夠大。", author: "Ellen Johnson Sirleaf" },
+  { text: "你現在的辛苦，是未來最精彩的伏筆。", author: "" },
+  { text: "世界上最厲害的人，只是比你多堅持了一天。", author: "" },
+  { text: "植物從不抱怨天氣，它只管向光生長。你也是。", author: "" },
+  { text: "你能扛住多大的壓力，就配得上多大的成就。", author: "" },
+  { text: "這世界上最可靠的人，是願意為自己負責的人。", author: "" },
+  { text: "起床是選擇，早起是決心，持續是力量。", author: "" },
+  { text: "不是因為厲害才自信，是因為持續做才變厲害。", author: "" },
+];
+
+function getQuoteForDate(dateStr) {
+  let hash = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
+    hash |= 0;
+  }
+  return quotes[Math.abs(hash) % quotes.length];
+}
+
+function getPlantSVG(streak) {
+  const c = '#23613A';
+  if (streak === 0) {
+    return `<svg viewBox="0 0 80 100" class="plant-svg">
+      <ellipse cx="40" cy="82" rx="24" ry="4" fill="${c}" opacity="0.1"/>
+      <path d="M25 65 L22 90 Q22 95 30 95 L50 95 Q58 95 58 90 L55 65 Z" fill="#8B7355" opacity="0.3"/>
+      <ellipse cx="40" cy="65" rx="16" ry="3" fill="#6B5B3E" opacity="0.3"/>
+      <text x="40" y="55" text-anchor="middle" font-size="8" fill="#7BA68D" font-family="Noto Sans TC">等你開始</text>
+    </svg>`;
+  }
+  if (streak <= 3) {
+    return `<svg viewBox="0 0 80 100" class="plant-svg">
+      <ellipse cx="40" cy="85" rx="24" ry="4" fill="${c}" opacity="0.1"/>
+      <path d="M25 68 L22 90 Q22 95 30 95 L50 95 Q58 95 58 90 L55 68 Z" fill="#A0845C"/>
+      <ellipse cx="40" cy="68" rx="16" ry="3" fill="#6B4E2E"/>
+      <line x1="40" y1="68" x2="40" y2="55" stroke="#2E8B4A" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="35" cy="55" rx="6" ry="4" fill="#5DB075" transform="rotate(-30 35 55)"/>
+      <ellipse cx="45" cy="55" rx="6" ry="4" fill="#5DB075" transform="rotate(30 45 55)"/>
+    </svg>`;
+  }
+  if (streak <= 7) {
+    return `<svg viewBox="0 0 80 100" class="plant-svg">
+      <ellipse cx="40" cy="88" rx="24" ry="4" fill="${c}" opacity="0.1"/>
+      <path d="M25 70 L22 92 Q22 97 30 97 L50 97 Q58 97 58 92 L55 70 Z" fill="#A0845C"/>
+      <ellipse cx="40" cy="70" rx="16" ry="3" fill="#6B4E2E"/>
+      <line x1="40" y1="70" x2="40" y2="40" stroke="#2E8B4A" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="30" cy="55" rx="8" ry="5" fill="#5DB075" transform="rotate(-40 30 55)"/>
+      <ellipse cx="50" cy="50" rx="8" ry="5" fill="#5DB075" transform="rotate(35 50 50)"/>
+      <ellipse cx="33" cy="43" rx="7" ry="4" fill="#3D9B5B" transform="rotate(-25 33 43)"/>
+      <ellipse cx="47" cy="38" rx="7" ry="4" fill="#3D9B5B" transform="rotate(25 47 38)"/>
+      <circle cx="40" cy="35" r="3" fill="#5DB075"/>
+    </svg>`;
+  }
+  if (streak <= 14) {
+    return `<svg viewBox="0 0 80 100" class="plant-svg">
+      <ellipse cx="40" cy="90" rx="26" ry="4" fill="${c}" opacity="0.1"/>
+      <path d="M25 72 L22 93 Q22 98 30 98 L50 98 Q58 98 58 93 L55 72 Z" fill="#A0845C"/>
+      <ellipse cx="40" cy="72" rx="16" ry="3" fill="#6B4E2E"/>
+      <line x1="40" y1="72" x2="40" y2="30" stroke="${c}" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="40" y1="60" x2="28" y2="50" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
+      <line x1="40" y1="50" x2="54" y2="40" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="25" cy="47" rx="9" ry="6" fill="#5DB075" transform="rotate(-20 25 47)"/>
+      <ellipse cx="56" cy="37" rx="9" ry="6" fill="#5DB075" transform="rotate(15 56 37)"/>
+      <ellipse cx="35" cy="32" rx="8" ry="5" fill="#3D9B5B" transform="rotate(-10 35 32)"/>
+      <ellipse cx="48" cy="28" rx="8" ry="5" fill="#3D9B5B" transform="rotate(10 48 28)"/>
+      <ellipse cx="40" cy="24" rx="10" ry="7" fill="#2E8B4A"/>
+      <circle cx="32" cy="44" r="2.5" fill="#F7DC6F" opacity="0.7"/>
+      <circle cx="52" cy="34" r="2.5" fill="#F7DC6F" opacity="0.7"/>
+    </svg>`;
+  }
+  if (streak <= 30) {
+    return `<svg viewBox="0 0 80 100" class="plant-svg">
+      <ellipse cx="40" cy="92" rx="28" ry="4" fill="${c}" opacity="0.1"/>
+      <rect x="36" y="65" width="8" height="30" rx="2" fill="#8B6914"/>
+      <line x1="40" y1="75" x2="28" y2="65" stroke="#8B6914" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="40" y1="70" x2="55" y2="58" stroke="#8B6914" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="40" cy="35" rx="22" ry="20" fill="#2E8B4A"/>
+      <ellipse cx="30" cy="40" rx="14" ry="12" fill="#3D9B5B"/>
+      <ellipse cx="52" cy="38" rx="12" ry="10" fill="#3D9B5B"/>
+      <ellipse cx="40" cy="25" rx="16" ry="13" fill="${c}"/>
+      <ellipse cx="25" cy="55" rx="10" ry="7" fill="#5DB075"/>
+      <ellipse cx="55" cy="50" rx="10" ry="7" fill="#5DB075"/>
+      <circle cx="28" cy="30" r="2" fill="#F7DC6F" opacity="0.6"/>
+      <circle cx="50" cy="25" r="2" fill="#F7DC6F" opacity="0.6"/>
+      <circle cx="38" cy="18" r="2" fill="#F7DC6F" opacity="0.6"/>
+    </svg>`;
+  }
+  return `<svg viewBox="0 0 80 100" class="plant-svg">
+    <ellipse cx="40" cy="94" rx="30" ry="4" fill="${c}" opacity="0.15"/>
+    <rect x="35" y="60" width="10" height="35" rx="3" fill="#7B5B2E"/>
+    <rect x="33" y="70" width="14" height="4" rx="2" fill="#8B6914" opacity="0.5"/>
+    <line x1="40" y1="72" x2="24" y2="58" stroke="#7B5B2E" stroke-width="3" stroke-linecap="round"/>
+    <line x1="40" y1="65" x2="58" y2="50" stroke="#7B5B2E" stroke-width="3" stroke-linecap="round"/>
+    <line x1="40" y1="78" x2="22" y2="70" stroke="#7B5B2E" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="40" cy="28" rx="28" ry="24" fill="${c}"/>
+    <ellipse cx="25" cy="35" rx="16" ry="14" fill="#2E8B4A"/>
+    <ellipse cx="55" cy="33" rx="14" ry="12" fill="#2E8B4A"/>
+    <ellipse cx="40" cy="18" rx="20" ry="15" fill="#1A5C30"/>
+    <ellipse cx="20" cy="48" rx="12" ry="9" fill="#3D9B5B"/>
+    <ellipse cx="60" cy="44" rx="12" ry="9" fill="#3D9B5B"/>
+    <ellipse cx="40" cy="10" rx="14" ry="10" fill="${c}"/>
+    <circle cx="22" cy="22" r="3" fill="#F9E04B"/>
+    <circle cx="55" cy="18" r="3" fill="#F9E04B"/>
+    <circle cx="38" cy="8" r="2.5" fill="#F9E04B"/>
+    <circle cx="18" cy="38" r="2.5" fill="#F7B7D0" opacity="0.8"/>
+    <circle cx="60" cy="28" r="2.5" fill="#F7B7D0" opacity="0.8"/>
+    <circle cx="30" cy="14" r="2" fill="#FFFFFF" opacity="0.5"/>
+    <circle cx="48" cy="12" r="2" fill="#FFFFFF" opacity="0.5"/>
+    <circle cx="15" cy="45" r="2" fill="#F9E04B" opacity="0.6"/>
+    <circle cx="62" cy="40" r="2" fill="#F9E04B" opacity="0.6"/>
+  </svg>`;
+}
+
+function getStreakMessage(streak) {
+  if (streak === 0) return "開始記錄你的第一天吧！";
+  if (streak === 1) return "🌱 第一天！種子剛剛發芽";
+  if (streak <= 3) return "🌱 小芽正在努力長大";
+  if (streak <= 7) return "🌿 幼苗越來越茁壯了！";
+  if (streak <= 14) return "🪴 你的小植物開始長出分枝了";
+  if (streak <= 30) return "🌳 小樹已經站穩了，繼續加油！";
+  if (streak <= 60) return "🌳 大樹開花了！你的堅持超美的";
+  return "🌳✨ 你就是一座森林，值得驕傲！";
+}
+
+function calcStreak() {
+  const entries = loadEntries();
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  let streak = 0;
+  let checkDate = new Date(today);
+  while (true) {
+    const ds = `${checkDate.getFullYear()}-${String(checkDate.getMonth()+1).padStart(2,'0')}-${String(checkDate.getDate()).padStart(2,'0')}`;
+    const entry = entries[ds];
+    if (entry && (entry.slots.some(s => s) || entry.reflection)) {
+      streak++;
+      checkDate.setDate(checkDate.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
+
+function renderStreak() {
+  const streak = calcStreak();
+  document.getElementById('streakNumber').innerHTML = `${streak}<span>天</span>`;
+  document.getElementById('streakMsg').textContent = getStreakMessage(streak);
+  document.getElementById('plantVisual').innerHTML = getPlantSVG(streak);
+}
+
+// ── Monthly Report ──
+function generateReport() {
+  const entries = loadEntries();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const monthStr = `${currentYear} 年 ${currentMonth + 1} 月`;
+
+  const activityMap = {
+    '社群': { icon: '📱', keywords: ['社群', '貼文', 'IG', 'Instagram', 'Reels', '限動', '發文', 'po文', '排版'] },
+    '閱讀': { icon: '📖', keywords: ['閱讀', '讀書', '看書', '書'] },
+    '運動': { icon: '🏃', keywords: ['運動', '健身', '跑步', '瑜珈', '散步', '走路', '伸展', '重訓', '有氧'] },
+    '冥想': { icon: '🧘', keywords: ['冥想', '靜坐', '正念', '呼吸', '靜心'] },
+    '寫作': { icon: '✍️', keywords: ['寫作', '日記', '筆記', '寫字', '文案', '文章'] },
+    '電繪': { icon: '🎨', keywords: ['電繪', '畫畫', '畫圖', 'Procreate', '繪畫', '插畫', '畫植物', '水彩'] },
+    '學習': { icon: '📚', keywords: ['學習', '上課', '課程', '研究', '練習'] },
+    '家務': { icon: '🏠', keywords: ['打掃', '洗衣', '整理', '家務', '收納'] },
+    '煮食': { icon: '☕', keywords: ['煮咖啡', '早餐', '做飯', '烹飪', '泡茶', '下廚'] },
+    '梳洗': { icon: '🚿', keywords: ['洗澡', '梳洗', '起床', '盥洗'] },
+  };
+
+  let totalDays = 0;
+  let allSlotTexts = [];
+  let activityCounts = {};
+  let activityMinutes = {};
+  let maxStreak = 0, tempStreak = 0;
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const entry = entries[ds];
+    if (entry && (entry.slots.some(s => s) || entry.reflection)) {
+      totalDays++;
+      tempStreak++;
+      if (tempStreak > maxStreak) maxStreak = tempStreak;
+
+      const times = [];
+      const activities = [];
+      entry.slots.forEach(slot => {
+        if (!slot) return;
+        allSlotTexts.push(slot);
+        const timeMatch = slot.match(/(\d{1,2})[:：](\d{2})/);
+        const t = timeMatch ? parseInt(timeMatch[1]) * 60 + parseInt(timeMatch[2]) : null;
+        times.push(t);
+        activities.push(slot);
+      });
+
+      for (let i = 0; i < activities.length; i++) {
+        const text = activities[i];
+        let minutes = 30;
+        if (times[i] !== null && i + 1 < times.length && times[i+1] !== null) {
+          minutes = times[i+1] - times[i];
+          if (minutes <= 0) minutes = 30;
+        }
+
+        for (const [name, config] of Object.entries(activityMap)) {
+          if (config.keywords.some(kw => text.includes(kw))) {
+            activityCounts[name] = (activityCounts[name] || 0) + 1;
+            activityMinutes[name] = (activityMinutes[name] || 0) + minutes;
+          }
+        }
+      }
+    } else {
+      tempStreak = 0;
+    }
+  }
+
+  const rate = daysInMonth > 0 ? Math.round((totalDays / daysInMonth) * 100) : 0;
+
+  let html = `<div class="report-title">📊 ${monthStr} 早晨月報</div>`;
+
+  if (totalDays === 0) {
+    html += `<div class="report-empty">這個月還沒有任何紀錄呢！<br>點選日期開始記錄你的早晨奇蹟吧 🌱</div>`;
+  } else {
+    html += `<div class="report-stat-grid">
+      <div class="report-stat">
+        <div class="report-stat-num">${totalDays}</div>
+        <div class="report-stat-label">早起天數</div>
+      </div>
+      <div class="report-stat">
+        <div class="report-stat-num">${rate}%</div>
+        <div class="report-stat-label">出席率</div>
+      </div>
+      <div class="report-stat">
+        <div class="report-stat-num">${maxStreak}</div>
+        <div class="report-stat-label">最長連續天數</div>
+      </div>
+      <div class="report-stat">
+        <div class="report-stat-num">${daysInMonth - totalDays}</div>
+        <div class="report-stat-label">休息天數</div>
+      </div>
+    </div>`;
+
+    const sorted = Object.entries(activityCounts).sort((a, b) => b[1] - a[1]);
+    if (sorted.length > 0) {
+      const maxCount = sorted[0][1];
+      html += `<div class="report-section-title">早晨活動統計</div>`;
+      sorted.forEach(([name, count]) => {
+        const mins = activityMinutes[name] || 0;
+        const hours = Math.floor(mins / 60);
+        const remainMins = mins % 60;
+        const timeStr = hours > 0 ? `約 ${hours} 小時 ${remainMins > 0 ? remainMins + ' 分鐘' : ''}` : `約 ${remainMins} 分鐘`;
+        const pct = Math.round((count / maxCount) * 100);
+        const icon = activityMap[name]?.icon || '📌';
+
+        html += `<div class="report-bar-row">
+          <div class="report-bar-label">${icon} ${name}</div>
+          <div class="report-bar-track"><div class="report-bar-fill" style="width:${pct}%"></div></div>
+          <div class="report-bar-val">${count} 次</div>
+        </div>`;
+      });
+
+      html += `<div style="margin-top:1.2rem;">`;
+      html += `<div class="report-section-title">累計時間</div>`;
+      sorted.forEach(([name, count]) => {
+        const mins = activityMinutes[name] || 0;
+        const hours = Math.floor(mins / 60);
+        const remainMins = mins % 60;
+        const timeStr = hours > 0 ? `${hours} 小時${remainMins > 0 ? ' ' + remainMins + ' 分' : ''}` : `${remainMins} 分鐘`;
+        const icon = activityMap[name]?.icon || '📌';
+        html += `<div class="report-activity">
+          <div class="report-activity-icon">${icon}</div>
+          <div class="report-activity-info">
+            <div class="report-activity-name">${name}</div>
+            <div class="report-activity-detail">共 ${count} 次</div>
+          </div>
+          <div><span class="report-activity-count">${timeStr}</span></div>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    if (sorted.length === 0) {
+      html += `<div class="report-section-title">早晨活動統計</div>
+        <div class="report-empty" style="padding:1rem">記錄中沒有偵測到特定活動關鍵字。<br>試試在早晨儀式欄位加入「社群」「閱讀」「運動」「冥想」「電繪」等關鍵字，月報就能幫你自動統計囉！</div>`;
+    }
+  }
+
+  document.getElementById('reportContent').innerHTML = html;
+  document.getElementById('reportOverlay').classList.add('show');
+}
+
+const STORAGE_KEY = 'morning_miracle_journal';
+let currentYear, currentMonth, selectedDate;
+
+function loadEntries() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function saveEntries(entries) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+}
+
+function renderCalendar() {
+  const label = document.getElementById('monthLabel');
+  const grid = document.getElementById('calGrid');
+  label.textContent = `${currentYear} 年 ${currentMonth + 1} 月`;
+
+  const entries = loadEntries();
+  const today = new Date();
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  let html = '';
+  ['日','一','二','三','四','五','六'].forEach(d => html += `<div class="weekday">${d}</div>`);
+  for (let i = 0; i < firstDay; i++) html += '<div class="day-cell empty"></div>';
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = today.getFullYear() === currentYear && today.getMonth() === currentMonth && today.getDate() === d;
+    const hasEntry = entries[dateStr] && (entries[dateStr].slots.some(s => s) || entries[dateStr].reflection);
+    const cls = ['day-cell'];
+    if (isToday) cls.push('today');
+    if (hasEntry) cls.push('has-entry');
+    html += `<div class="${cls.join(' ')}" data-date="${dateStr}">${d}</div>`;
+  }
+  grid.innerHTML = html;
+  grid.querySelectorAll('.day-cell:not(.empty)').forEach(cell => {
+    cell.addEventListener('click', () => openEntry(cell.dataset.date));
+  });
+  renderStreak();
+}
+
+function openEntry(dateStr) {
+  selectedDate = dateStr;
+  const [y, m, d] = dateStr.split('-');
+  document.getElementById('entryDate').textContent = `${y} 年 ${parseInt(m)} 月 ${parseInt(d)} 日`;
+  const q = getQuoteForDate(dateStr);
+  document.getElementById('quoteText').textContent = q.text;
+  document.getElementById('quoteAuthor').textContent = q.author ? `— ${q.author}` : '';
+  const entries = loadEntries();
+  const entry = entries[dateStr] || { slots: ['','','',''], reflection: '' };
+  for (let i = 1; i <= 4; i++) document.getElementById('slot'+i).value = entry.slots[i-1] || '';
+  document.getElementById('reflection').value = entry.reflection || '';
+  document.getElementById('calendarView').style.display = 'none';
+  document.getElementById('streakCard').style.display = 'none';
+  document.getElementById('entryView').style.display = 'block';
+  document.getElementById('saveToast').classList.remove('show');
+  window.scrollTo(0, 0);
+}
+
+function closeEntry() {
+  document.getElementById('entryView').style.display = 'none';
+  document.getElementById('streakCard').style.display = 'block';
+  document.getElementById('calendarView').style.display = 'block';
+  renderCalendar();
+}
+
+function saveEntry() {
+  const entries = loadEntries();
+  entries[selectedDate] = {
+    slots: [
+      document.getElementById('slot1').value,
+      document.getElementById('slot2').value,
+      document.getElementById('slot3').value,
+      document.getElementById('slot4').value
+    ],
+    reflection: document.getElementById('reflection').value
+  };
+  saveEntries(entries);
+  const toast = document.getElementById('saveToast');
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+    closeEntry();
+  }, 800);
+}
+
+function deleteEntry() {
+  if (!confirm('確定要清除這天的紀錄嗎？')) return;
+  const entries = loadEntries();
+  delete entries[selectedDate];
+  saveEntries(entries);
+  closeEntry();
+}
+
+const now = new Date();
+currentYear = now.getFullYear();
+currentMonth = now.getMonth();
+renderCalendar();
+
+document.getElementById('prevMonth').addEventListener('click', () => {
+  currentMonth--;
+  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  renderCalendar();
+});
+document.getElementById('nextMonth').addEventListener('click', () => {
+  currentMonth++;
+  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  renderCalendar();
+});
+document.getElementById('backBtn').addEventListener('click', closeEntry);
+document.getElementById('saveBtn').addEventListener('click', saveEntry);
+document.getElementById('deleteBtn').addEventListener('click', deleteEntry);
+document.getElementById('reportBtn').addEventListener('click', generateReport);
+document.getElementById('reportClose').addEventListener('click', () => {
+  document.getElementById('reportOverlay').classList.remove('show');
+});
+document.getElementById('reportOverlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove('show');
+});
+
+// ── Gist Sync ──
+const SYNC_PAT_KEY = 'morning_miracle_pat';
+const SYNC_GIST_KEY = 'morning_miracle_gist_id';
+const GIST_FILENAME = 'morning_miracle_journal.json';
+const GIST_DESC = '早晨奇蹟日記 - 跨裝置同步';
+
+function getSyncConfig() {
+  return {
+    pat: localStorage.getItem(SYNC_PAT_KEY),
+    gistId: localStorage.getItem(SYNC_GIST_KEY)
+  };
+}
+
+function updateSyncUI(state, label) {
+  const dot = document.getElementById('syncDot');
+  const lbl = document.getElementById('syncLabel');
+  dot.className = 'sync-dot';
+  if (state === 'connected') { dot.classList.add('connected'); lbl.textContent = label || '✅ 已同步'; }
+  else if (state === 'syncing') { dot.classList.add('syncing'); lbl.textContent = label || '🔄 同步中...'; }
+  else if (state === 'error') { dot.classList.add('error'); lbl.textContent = label || '⚠️ 同步失敗'; }
+  else { lbl.textContent = label || '⚙️ 設定同步'; }
+}
+
+async function pushToGist() {
+  const { pat, gistId } = getSyncConfig();
+  if (!pat || !gistId) return;
+  updateSyncUI('syncing');
+  try {
+    const data = localStorage.getItem(STORAGE_KEY) || '{}';
+    await fetch(`https://api.github.com/gists/${gistId}`, {
+      method: 'PATCH',
+      headers: { 'Authorization': `token ${pat}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ files: { [GIST_FILENAME]: { content: data } } })
+    });
+    updateSyncUI('connected');
+  } catch (e) {
+    console.error('Push failed:', e);
+    updateSyncUI('error');
+  }
+}
+
+async function pullFromGist() {
+  const { pat, gistId } = getSyncConfig();
+  if (!pat || !gistId) return;
+  updateSyncUI('syncing');
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      headers: { 'Authorization': `token ${pat}` }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const gist = await res.json();
+    const file = gist.files[GIST_FILENAME];
+    if (file && file.content) {
+      const remote = JSON.parse(file.content);
+      const local = loadEntries();
+      const merged = { ...remote, ...local };
+      for (const key of Object.keys(remote)) {
+        if (!local[key]) merged[key] = remote[key];
+      }
+      saveEntries(merged);
+    }
+    updateSyncUI('connected');
+    renderCalendar();
+  } catch (e) {
+    console.error('Pull failed:', e);
+    updateSyncUI('error');
+  }
+}
+
+async function doSync() {
+  await pullFromGist();
+  await pushToGist();
+}
+
+function saveEntriesAndSync(entries) {
+  saveEntries(entries);
+  pushToGist();
+}
+
+async function setupSync(pat) {
+  const msgEl = document.getElementById('syncStatusMsg');
+  msgEl.textContent = '連線中...';
+  try {
+    const listRes = await fetch('https://api.github.com/gists?per_page=100', {
+      headers: { 'Authorization': `token ${pat}` }
+    });
+    if (!listRes.ok) { msgEl.textContent = '❌ PAT 無效，請檢查後重試'; return; }
+    const gists = await listRes.json();
+    const existing = gists.find(g => g.description === GIST_DESC && g.files[GIST_FILENAME]);
+
+    let gistId;
+    if (existing) {
+      gistId = existing.id;
+      msgEl.textContent = '找到現有同步資料，連結中...';
+    } else {
+      msgEl.textContent = '建立新的同步空間...';
+      const createRes = await fetch('https://api.github.com/gists', {
+        method: 'POST',
+        headers: { 'Authorization': `token ${pat}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          description: GIST_DESC,
+          public: false,
+          files: { [GIST_FILENAME]: { content: localStorage.getItem(STORAGE_KEY) || '{}' } }
+        })
+      });
+      if (!createRes.ok) { msgEl.textContent = '❌ 建立失敗，請確認 PAT 有 gist 權限'; return; }
+      const created = await createRes.json();
+      gistId = created.id;
+    }
+
+    localStorage.setItem(SYNC_PAT_KEY, pat);
+    localStorage.setItem(SYNC_GIST_KEY, gistId);
+    msgEl.textContent = '✅ 連結成功！';
+
+    await doSync();
+    showSyncConnected();
+  } catch (e) {
+    msgEl.textContent = '❌ 連線失敗：' + e.message;
+  }
+}
+
+function showSyncSetup() {
+  document.getElementById('syncModalBody').style.display = 'block';
+  document.getElementById('syncConnectedBody').style.display = 'none';
+  document.getElementById('syncModalTitle').textContent = '🔗 設定跨裝置同步';
+  document.getElementById('syncPatInput').value = '';
+  document.getElementById('syncStatusMsg').textContent = '';
+  document.getElementById('syncModal').classList.add('show');
+}
+
+function showSyncConnected() {
+  document.getElementById('syncModalBody').style.display = 'none';
+  document.getElementById('syncConnectedBody').style.display = 'block';
+  document.getElementById('syncModalTitle').textContent = '🔗 同步設定';
+  document.getElementById('syncGistIdDisplay').textContent = getSyncConfig().gistId || '';
+  document.getElementById('syncStatusMsg2').textContent = '';
+  document.getElementById('syncModal').classList.add('show');
+}
+
+function closeSyncModal() {
+  document.getElementById('syncModal').classList.remove('show');
+}
+
+document.getElementById('syncBar').addEventListener('click', () => {
+  const { pat, gistId } = getSyncConfig();
+  if (pat && gistId) showSyncConnected();
+  else showSyncSetup();
+});
+
+document.getElementById('syncSaveBtn').addEventListener('click', () => {
+  const pat = document.getElementById('syncPatInput').value.trim();
+  if (!pat) { document.getElementById('syncStatusMsg').textContent = '請輸入 PAT'; return; }
+  setupSync(pat);
+});
+
+document.getElementById('syncCancelBtn').addEventListener('click', closeSyncModal);
+document.getElementById('syncDoneBtn').addEventListener('click', closeSyncModal);
+
+document.getElementById('syncNowBtn').addEventListener('click', async () => {
+  document.getElementById('syncStatusMsg2').textContent = '同步中...';
+  await doSync();
+  document.getElementById('syncStatusMsg2').textContent = '✅ 同步完成！';
+  setTimeout(() => { document.getElementById('syncStatusMsg2').textContent = ''; }, 2000);
+});
+
+document.getElementById('syncDisconnectBtn').addEventListener('click', () => {
+  if (!confirm('確定要解除同步連結嗎？（本機資料不會刪除）')) return;
+  localStorage.removeItem(SYNC_PAT_KEY);
+  localStorage.removeItem(SYNC_GIST_KEY);
+  updateSyncUI('none');
+  closeSyncModal();
+});
+
+document.getElementById('syncModal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeSyncModal();
+});
+
+// Override saveEntry and deleteEntry to also sync
+const _origSaveEntry = saveEntry;
+saveEntry = function() {
+  const entries = loadEntries();
+  entries[selectedDate] = {
+    slots: [
+      document.getElementById('slot1').value,
+      document.getElementById('slot2').value,
+      document.getElementById('slot3').value,
+      document.getElementById('slot4').value
+    ],
+    reflection: document.getElementById('reflection').value
+  };
+  saveEntries(entries);
+  pushToGist();
+  const toast = document.getElementById('saveToast');
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+    closeEntry();
+  }, 800);
+};
+
+const _origDeleteEntry = deleteEntry;
+deleteEntry = function() {
+  if (!confirm('確定要清除這天的紀錄嗎？')) return;
+  const entries = loadEntries();
+  delete entries[selectedDate];
+  saveEntries(entries);
+  pushToGist();
+  closeEntry();
+};
+
+// Init sync on page load
+(function initSync() {
+  const { pat, gistId } = getSyncConfig();
+  if (pat && gistId) {
+    updateSyncUI('connected');
+    doSync();
+  }
+})();
+</script>
+</body>
+</html>
