@@ -8,32 +8,34 @@
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap');
 
   :root {
-    --green-deep: #23613A;
-    --green-mid: #2E8B4A;
-    --green-light: #5DB075;
-    --green-pale: #D4EDDA;
-    --green-bg: #F0F7F2;
-    --cream: #FFFDF7;
+    --primary-dark: #5C5654;
+    --primary-mid: #7D7572;
+    --primary-light: #B5AFA8;
+    --primary-pale: #E8E4E0;
+    --bg: #F6F4F1;
+    --card: #FEFDFB;
     --gold: #C4A35A;
-    --gold-light: #F0E6CC;
-    --text-dark: #1A3D2A;
-    --text-mid: #3D6B4F;
-    --text-light: #7BA68D;
-    --shadow: rgba(35, 97, 58, 0.12);
+    --gold-light: #F5EDD8;
+    --text-dark: #3D3937;
+    --text-mid: #7A7470;
+    --text-light: #ABA5A0;
+    --shadow: rgba(80, 75, 70, 0.08);
+    --sage: #94A68B;
+    --sage-dark: #708264;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     font-family: 'Noto Sans TC', sans-serif;
-    background: var(--green-bg);
+    background: var(--bg);
     color: var(--text-dark);
     min-height: 100vh;
     overflow-x: hidden;
   }
 
   .header {
-    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-mid) 100%);
     padding: 2rem 1.5rem 1.5rem;
     text-align: center;
     position: relative;
@@ -44,8 +46,8 @@
     position: absolute;
     top: -50%; left: -50%;
     width: 200%; height: 200%;
-    background: radial-gradient(circle at 30% 70%, rgba(93,176,117,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 40%);
+    background: radial-gradient(circle at 30% 70%, rgba(180,175,168,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.06) 0%, transparent 40%);
     pointer-events: none;
   }
   .header h1 {
@@ -73,7 +75,7 @@
     padding: 0 1.5rem;
   }
   .streak-inner {
-    background: var(--cream);
+    background: var(--card);
     border-radius: 20px;
     padding: 1.5rem;
     display: flex;
@@ -88,7 +90,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--green-deep), var(--green-light), var(--green-deep));
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-light), var(--primary-dark));
   }
   .plant-visual {
     width: 80px;
@@ -111,7 +113,7 @@
     font-family: 'Noto Serif TC', serif;
     font-size: 2.4rem;
     font-weight: 700;
-    color: var(--green-deep);
+    color: var(--primary-dark);
     line-height: 1.1;
   }
   .streak-number span {
@@ -136,9 +138,9 @@
     margin-bottom: 1.2rem;
   }
   .cal-nav button {
-    background: var(--cream);
-    border: 1.5px solid var(--green-light);
-    color: var(--green-deep);
+    background: var(--card);
+    border: 1.5px solid var(--primary-pale);
+    color: var(--primary-dark);
     width: 38px; height: 38px;
     border-radius: 50%;
     font-size: 1.1rem;
@@ -149,15 +151,15 @@
     justify-content: center;
   }
   .cal-nav button:hover {
-    background: var(--green-deep);
+    background: var(--primary-dark);
     color: #fff;
-    border-color: var(--green-deep);
+    border-color: var(--primary-dark);
   }
   .cal-nav .month-label {
     font-family: 'Noto Serif TC', serif;
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--green-deep);
+    color: var(--primary-dark);
   }
 
   .cal-grid {
@@ -181,14 +183,14 @@
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s;
-    background: var(--cream);
+    background: var(--card);
     border: 1.5px solid transparent;
     position: relative;
     font-size: 0.95rem;
     font-weight: 500;
   }
   .cal-grid .day-cell:hover {
-    border-color: var(--green-light);
+    border-color: var(--primary-light);
     transform: scale(1.05);
     box-shadow: 0 2px 8px var(--shadow);
   }
@@ -198,14 +200,14 @@
     font-weight: 700;
   }
   .cal-grid .day-cell.has-entry {
-    background: var(--green-pale);
-    border-color: var(--green-light);
+    background: var(--primary-pale);
+    border-color: var(--primary-light);
   }
   .cal-grid .day-cell.has-entry::after {
     content: '';
     width: 6px; height: 6px;
     border-radius: 50%;
-    background: var(--green-mid);
+    background: var(--primary-mid);
     position: absolute;
     bottom: 5px;
   }
@@ -215,7 +217,6 @@
     pointer-events: none;
   }
 
-  /* Report Button */
   .report-btn {
     display: flex;
     align-items: center;
@@ -225,10 +226,10 @@
     max-width: 520px;
     margin: 0.8rem auto 0;
     padding: 0.75rem;
-    background: var(--cream);
-    border: 1.5px solid var(--green-light);
+    background: var(--card);
+    border: 1.5px solid var(--primary-pale);
     border-radius: 12px;
-    color: var(--green-deep);
+    color: var(--primary-dark);
     font-size: 0.9rem;
     font-weight: 600;
     font-family: 'Noto Sans TC', sans-serif;
@@ -237,13 +238,12 @@
     letter-spacing: 0.05em;
   }
   .report-btn:hover {
-    background: var(--green-deep);
+    background: var(--primary-dark);
     color: #fff;
-    border-color: var(--green-deep);
+    border-color: var(--primary-dark);
   }
   .report-wrapper { padding: 0 1.5rem; max-width: calc(520px + 3rem); margin: 0 auto; }
 
-  /* Report Modal */
   .report-overlay {
     display: none;
     position: fixed;
@@ -259,7 +259,7 @@
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   .report-modal {
-    background: var(--cream);
+    background: var(--card);
     border-radius: 20px;
     padding: 2rem 1.5rem;
     max-width: 480px;
@@ -288,13 +288,13 @@
     justify-content: center;
     transition: all 0.2s;
   }
-  .report-close:hover { background: var(--green-pale); color: var(--green-deep); }
+  .report-close:hover { background: var(--primary-pale); color: var(--primary-dark); }
 
   .report-title {
     font-family: 'Noto Serif TC', serif;
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--green-deep);
+    color: var(--primary-dark);
     margin-bottom: 1.2rem;
   }
 
@@ -305,7 +305,7 @@
     margin-bottom: 1.5rem;
   }
   .report-stat {
-    background: var(--green-bg);
+    background: var(--bg);
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
@@ -315,7 +315,7 @@
     font-family: 'Noto Serif TC', serif;
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--green-deep);
+    color: var(--primary-dark);
   }
   .report-stat-label {
     font-size: 0.75rem;
@@ -331,51 +331,6 @@
     margin-bottom: 0.6rem;
     margin-top: 0.5rem;
   }
-  .report-activity {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--green-pale);
-  }
-  .report-activity:last-child { border-bottom: none; }
-  .report-activity-icon {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: var(--green-pale);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
-  .report-activity-info { flex: 1; }
-  .report-activity-name {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-dark);
-  }
-  .report-activity-detail {
-    font-size: 0.75rem;
-    color: var(--text-light);
-  }
-  .report-activity-count {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--green-deep);
-  }
-  .report-activity-unit {
-    font-size: 0.7rem;
-    color: var(--text-light);
-  }
-  .report-empty {
-    text-align: center;
-    color: var(--text-light);
-    padding: 2rem 1rem;
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
 
   .report-bar-row {
     display: flex;
@@ -386,20 +341,20 @@
   .report-bar-label {
     font-size: 0.8rem;
     color: var(--text-dark);
-    width: 80px;
+    width: 72px;
     text-align: right;
     flex-shrink: 0;
   }
   .report-bar-track {
     flex: 1;
     height: 18px;
-    background: var(--green-pale);
+    background: var(--primary-pale);
     border-radius: 9px;
     overflow: hidden;
   }
   .report-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--green-deep), var(--green-mid));
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-mid));
     border-radius: 9px;
     transition: width 0.5s ease;
     min-width: 2px;
@@ -407,9 +362,17 @@
   .report-bar-val {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--green-deep);
+    color: var(--primary-dark);
     width: 36px;
     flex-shrink: 0;
+  }
+
+  .report-empty {
+    text-align: center;
+    color: var(--text-light);
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 
   .entry-view {
@@ -430,7 +393,7 @@
     gap: 0.4rem;
     background: none;
     border: none;
-    color: var(--green-deep);
+    color: var(--primary-dark);
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
@@ -438,18 +401,18 @@
     padding: 0.4rem 0;
     font-family: 'Noto Sans TC', sans-serif;
   }
-  .back-btn:hover { color: var(--green-mid); }
+  .back-btn:hover { color: var(--primary-mid); }
 
   .entry-date {
     font-family: 'Noto Serif TC', serif;
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--green-deep);
+    color: var(--primary-dark);
     margin-bottom: 1rem;
   }
 
   .quote-card {
-    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-mid) 100%);
     border-radius: 16px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
@@ -457,11 +420,11 @@
     overflow: hidden;
   }
   .quote-card::before {
-    content: '"';
+    content: '\201C';
     position: absolute;
     top: -10px; left: 12px;
     font-size: 5rem;
-    color: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.08);
     font-family: 'Georgia', serif;
     line-height: 1;
   }
@@ -496,6 +459,7 @@
     letter-spacing: 0.1em;
     margin-bottom: 0.6rem;
   }
+
   .routine-slots {
     display: flex;
     flex-direction: column;
@@ -506,18 +470,18 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: var(--cream);
+    background: var(--card);
     border-radius: 12px;
     padding: 0.5rem;
-    border: 1.5px solid var(--green-pale);
+    border: 1.5px solid var(--primary-pale);
     transition: border-color 0.2s;
   }
-  .routine-slot:focus-within { border-color: var(--green-mid); }
+  .routine-slot:focus-within { border-color: var(--primary-mid); }
   .routine-slot .slot-num {
     width: 28px; height: 28px;
     border-radius: 50%;
-    background: var(--green-pale);
-    color: var(--green-deep);
+    background: var(--primary-pale);
+    color: var(--primary-dark);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -537,15 +501,52 @@
   }
   .routine-slot input::placeholder { color: var(--text-light); font-weight: 300; }
 
-  .reflection-area {
-    background: var(--cream);
+  /* Wins Section */
+  .wins-container {
+    background: var(--card);
     border-radius: 16px;
-    border: 1.5px solid var(--green-pale);
+    border: 1.5px solid var(--primary-pale);
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .win-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.55rem 0.3rem;
+    border-bottom: 1px solid var(--primary-pale);
+  }
+  .win-row:last-child { border-bottom: none; }
+  .win-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    width: 60px;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+  .win-row input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    font-family: 'Noto Sans TC', sans-serif;
+    outline: none;
+    padding: 0.35rem 0;
+    min-width: 0;
+  }
+  .win-row input::placeholder { color: var(--text-light); font-weight: 300; font-size: 0.82rem; }
+
+  .reflection-area {
+    background: var(--card);
+    border-radius: 16px;
+    border: 1.5px solid var(--primary-pale);
     padding: 1rem;
     margin-bottom: 1.5rem;
     transition: border-color 0.2s;
   }
-  .reflection-area:focus-within { border-color: var(--green-mid); }
+  .reflection-area:focus-within { border-color: var(--primary-mid); }
   .reflection-area textarea {
     width: 100%;
     border: none;
@@ -555,7 +556,7 @@
     font-family: 'Noto Sans TC', sans-serif;
     outline: none;
     resize: none;
-    min-height: 120px;
+    min-height: 80px;
     line-height: 1.8;
   }
   .reflection-area textarea::placeholder { color: var(--text-light); font-weight: 300; }
@@ -563,7 +564,7 @@
   .save-btn {
     width: 100%;
     padding: 0.9rem;
-    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-mid) 100%);
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -580,7 +581,7 @@
 
   .save-toast {
     text-align: center;
-    color: var(--green-mid);
+    color: var(--primary-mid);
     font-size: 0.85rem;
     opacity: 0;
     transition: opacity 0.3s;
@@ -603,7 +604,7 @@
   }
   .delete-btn:hover { color: #c0392b; border-color: #c0392b; }
 
-  /* ── Sync ── */
+  /* Sync */
   .sync-bar {
     display: flex;
     align-items: center;
@@ -621,7 +622,7 @@
     border-radius: 50%;
     background: rgba(255,255,255,0.4);
   }
-  .sync-bar .sync-dot.connected { background: #5DB075; }
+  .sync-bar .sync-dot.connected { background: var(--sage); }
   .sync-bar .sync-dot.syncing { background: #F7DC6F; animation: pulse 1s infinite; }
   .sync-bar .sync-dot.error { background: #E74C3C; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
@@ -638,7 +639,7 @@
   }
   .sync-modal-overlay.show { display: flex; }
   .sync-modal {
-    background: var(--cream);
+    background: var(--card);
     border-radius: 20px;
     padding: 2rem 1.5rem;
     max-width: 420px;
@@ -650,7 +651,7 @@
   .sync-modal h3 {
     font-family: 'Noto Serif TC', serif;
     font-size: 1.1rem;
-    color: var(--green-deep);
+    color: var(--primary-dark);
     margin-bottom: 1rem;
   }
   .sync-modal p {
@@ -662,7 +663,7 @@
   .sync-modal input[type="text"] {
     width: 100%;
     padding: 0.7rem 1rem;
-    border: 1.5px solid var(--green-pale);
+    border: 1.5px solid var(--primary-pale);
     border-radius: 10px;
     font-size: 0.9rem;
     font-family: monospace;
@@ -671,7 +672,7 @@
     margin-bottom: 1rem;
     transition: border-color 0.2s;
   }
-  .sync-modal input[type="text"]:focus { border-color: var(--green-mid); }
+  .sync-modal input[type="text"]:focus { border-color: var(--primary-mid); }
   .sync-modal .sync-actions {
     display: flex;
     gap: 0.5rem;
@@ -687,15 +688,15 @@
     transition: all 0.2s;
   }
   .sync-save-btn {
-    background: var(--green-deep);
+    background: var(--primary-dark);
     color: #fff;
     border: none;
   }
-  .sync-save-btn:hover { background: var(--green-mid); }
+  .sync-save-btn:hover { background: var(--primary-mid); }
   .sync-cancel-btn {
     background: transparent;
     color: var(--text-light);
-    border: 1.5px solid var(--green-pale);
+    border: 1.5px solid var(--primary-pale);
   }
   .sync-cancel-btn:hover { border-color: var(--text-light); }
   .sync-status-msg {
@@ -720,13 +721,13 @@
   .footer {
     text-align: center;
     padding: 2rem 1.5rem 1.5rem;
-    border-top: 1px solid var(--green-pale);
+    border-top: 1px solid var(--primary-pale);
     margin-top: 1rem;
   }
   .footer .brand {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--green-deep);
+    color: var(--primary-dark);
     letter-spacing: 0.1em;
   }
   .footer .slogan {
@@ -799,29 +800,28 @@
     <div class="quote-icon">🌱</div>
   </div>
 
-  <div class="section-label">我的早晨儀式</div>
+  <div class="section-label">早晨儀式</div>
   <div class="routine-slots">
     <div class="routine-slot">
       <div class="slot-num">1</div>
-      <input type="text" id="slot1" placeholder="例：5:30 起床洗澡、煮咖啡">
+      <input type="text" id="slot1" placeholder="如：5:30 起床、梳洗">
     </div>
     <div class="routine-slot">
       <div class="slot-num">2</div>
-      <input type="text" id="slot2" placeholder="例：6:00 想社群貼文">
+      <input type="text" id="slot2" placeholder="如：6:00 煮咖啡、吃早餐">
     </div>
     <div class="routine-slot">
       <div class="slot-num">3</div>
-      <input type="text" id="slot3" placeholder="例：6:30 冥想、寫日記">
-    </div>
-    <div class="routine-slot">
-      <div class="slot-num">4</div>
-      <input type="text" id="slot4" placeholder="例：7:00 吃早餐、出門">
+      <input type="text" id="slot3" placeholder="如：6:30 冥想、寫日記">
     </div>
   </div>
 
-  <div class="section-label">今天的日記心得</div>
+  <div class="section-label">今日小成就</div>
+  <div class="wins-container" id="winsContainer"></div>
+
+  <div class="section-label">今天的心情</div>
   <div class="reflection-area">
-    <textarea id="reflection" placeholder="今天早上有什麼感受？做了什麼讓你開心的事？寫下來吧 ✨"></textarea>
+    <textarea id="reflection" placeholder="今天的心情如何？發生了什麼讓你開心的事？"></textarea>
   </div>
 
   <button class="save-btn" id="saveBtn">儲存今天的紀錄</button>
@@ -862,6 +862,35 @@
 </div>
 
 <script>
+const WIN_CATEGORIES = [
+  { key: '社群內容', placeholder: '如：發布 Reels、寫貼文文案' },
+  { key: '累積財富', placeholder: '如：設計 Skool 遊戲、規劃新產品' },
+  { key: '電繪創作', placeholder: '如：完成一幅植物插畫' },
+  { key: '健康飲食', placeholder: '如：自己煮午餐、喝滿水量' },
+  { key: '運動健身', placeholder: '如：瑜珈 30 分鐘、散步' },
+  { key: '閱讀學習', placeholder: '如：讀《原子習慣》一章' },
+  { key: '自我照顧', placeholder: '如：泡澡、冥想、放鬆、按摩' },
+];
+
+function renderWinsInputs(wins) {
+  const container = document.getElementById('winsContainer');
+  container.innerHTML = WIN_CATEGORIES.map(cat => `
+    <div class="win-row">
+      <div class="win-label">${cat.key}</div>
+      <input type="text" id="win_${cat.key}" value="${(wins && wins[cat.key]) || ''}" placeholder="${cat.placeholder}">
+    </div>
+  `).join('');
+}
+
+function getWinsData() {
+  const wins = {};
+  WIN_CATEGORIES.forEach(cat => {
+    const val = document.getElementById('win_' + cat.key).value;
+    if (val) wins[cat.key] = val;
+  });
+  return wins;
+}
+
 const quotes = [
   { text: "你今天的選擇，正在重寫你的人生劇本。", author: "" },
   { text: "冒牌者不會凌晨五點起床追夢，但你會。", author: "" },
@@ -956,95 +985,95 @@ function getQuoteForDate(dateStr) {
 }
 
 function getPlantSVG(streak) {
-  const c = '#23613A';
+  const s = '#708264';
+  const sl = '#94A68B';
+  const sd = '#5A6B50';
   if (streak === 0) {
     return `<svg viewBox="0 0 80 100" class="plant-svg">
-      <ellipse cx="40" cy="82" rx="24" ry="4" fill="${c}" opacity="0.1"/>
+      <ellipse cx="40" cy="82" rx="24" ry="4" fill="${s}" opacity="0.1"/>
       <path d="M25 65 L22 90 Q22 95 30 95 L50 95 Q58 95 58 90 L55 65 Z" fill="#8B7355" opacity="0.3"/>
       <ellipse cx="40" cy="65" rx="16" ry="3" fill="#6B5B3E" opacity="0.3"/>
-      <text x="40" y="55" text-anchor="middle" font-size="8" fill="#7BA68D" font-family="Noto Sans TC">等你開始</text>
+      <text x="40" y="55" text-anchor="middle" font-size="8" fill="#ABA5A0" font-family="Noto Sans TC">等你開始</text>
     </svg>`;
   }
   if (streak <= 3) {
     return `<svg viewBox="0 0 80 100" class="plant-svg">
-      <ellipse cx="40" cy="85" rx="24" ry="4" fill="${c}" opacity="0.1"/>
+      <ellipse cx="40" cy="85" rx="24" ry="4" fill="${s}" opacity="0.1"/>
       <path d="M25 68 L22 90 Q22 95 30 95 L50 95 Q58 95 58 90 L55 68 Z" fill="#A0845C"/>
       <ellipse cx="40" cy="68" rx="16" ry="3" fill="#6B4E2E"/>
-      <line x1="40" y1="68" x2="40" y2="55" stroke="#2E8B4A" stroke-width="2.5" stroke-linecap="round"/>
-      <ellipse cx="35" cy="55" rx="6" ry="4" fill="#5DB075" transform="rotate(-30 35 55)"/>
-      <ellipse cx="45" cy="55" rx="6" ry="4" fill="#5DB075" transform="rotate(30 45 55)"/>
+      <line x1="40" y1="68" x2="40" y2="55" stroke="${s}" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="35" cy="55" rx="6" ry="4" fill="${sl}" transform="rotate(-30 35 55)"/>
+      <ellipse cx="45" cy="55" rx="6" ry="4" fill="${sl}" transform="rotate(30 45 55)"/>
     </svg>`;
   }
   if (streak <= 7) {
     return `<svg viewBox="0 0 80 100" class="plant-svg">
-      <ellipse cx="40" cy="88" rx="24" ry="4" fill="${c}" opacity="0.1"/>
+      <ellipse cx="40" cy="88" rx="24" ry="4" fill="${s}" opacity="0.1"/>
       <path d="M25 70 L22 92 Q22 97 30 97 L50 97 Q58 97 58 92 L55 70 Z" fill="#A0845C"/>
       <ellipse cx="40" cy="70" rx="16" ry="3" fill="#6B4E2E"/>
-      <line x1="40" y1="70" x2="40" y2="40" stroke="#2E8B4A" stroke-width="3" stroke-linecap="round"/>
-      <ellipse cx="30" cy="55" rx="8" ry="5" fill="#5DB075" transform="rotate(-40 30 55)"/>
-      <ellipse cx="50" cy="50" rx="8" ry="5" fill="#5DB075" transform="rotate(35 50 50)"/>
-      <ellipse cx="33" cy="43" rx="7" ry="4" fill="#3D9B5B" transform="rotate(-25 33 43)"/>
-      <ellipse cx="47" cy="38" rx="7" ry="4" fill="#3D9B5B" transform="rotate(25 47 38)"/>
-      <circle cx="40" cy="35" r="3" fill="#5DB075"/>
+      <line x1="40" y1="70" x2="40" y2="40" stroke="${s}" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="30" cy="55" rx="8" ry="5" fill="${sl}" transform="rotate(-40 30 55)"/>
+      <ellipse cx="50" cy="50" rx="8" ry="5" fill="${sl}" transform="rotate(35 50 50)"/>
+      <ellipse cx="33" cy="43" rx="7" ry="4" fill="${s}" transform="rotate(-25 33 43)"/>
+      <ellipse cx="47" cy="38" rx="7" ry="4" fill="${s}" transform="rotate(25 47 38)"/>
+      <circle cx="40" cy="35" r="3" fill="${sl}"/>
     </svg>`;
   }
   if (streak <= 14) {
     return `<svg viewBox="0 0 80 100" class="plant-svg">
-      <ellipse cx="40" cy="90" rx="26" ry="4" fill="${c}" opacity="0.1"/>
+      <ellipse cx="40" cy="90" rx="26" ry="4" fill="${s}" opacity="0.1"/>
       <path d="M25 72 L22 93 Q22 98 30 98 L50 98 Q58 98 58 93 L55 72 Z" fill="#A0845C"/>
       <ellipse cx="40" cy="72" rx="16" ry="3" fill="#6B4E2E"/>
-      <line x1="40" y1="72" x2="40" y2="30" stroke="${c}" stroke-width="3.5" stroke-linecap="round"/>
-      <line x1="40" y1="60" x2="28" y2="50" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
-      <line x1="40" y1="50" x2="54" y2="40" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
-      <ellipse cx="25" cy="47" rx="9" ry="6" fill="#5DB075" transform="rotate(-20 25 47)"/>
-      <ellipse cx="56" cy="37" rx="9" ry="6" fill="#5DB075" transform="rotate(15 56 37)"/>
-      <ellipse cx="35" cy="32" rx="8" ry="5" fill="#3D9B5B" transform="rotate(-10 35 32)"/>
-      <ellipse cx="48" cy="28" rx="8" ry="5" fill="#3D9B5B" transform="rotate(10 48 28)"/>
-      <ellipse cx="40" cy="24" rx="10" ry="7" fill="#2E8B4A"/>
-      <circle cx="32" cy="44" r="2.5" fill="#F7DC6F" opacity="0.7"/>
-      <circle cx="52" cy="34" r="2.5" fill="#F7DC6F" opacity="0.7"/>
+      <line x1="40" y1="72" x2="40" y2="30" stroke="${sd}" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="40" y1="60" x2="28" y2="50" stroke="${sd}" stroke-width="2" stroke-linecap="round"/>
+      <line x1="40" y1="50" x2="54" y2="40" stroke="${sd}" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="25" cy="47" rx="9" ry="6" fill="${sl}" transform="rotate(-20 25 47)"/>
+      <ellipse cx="56" cy="37" rx="9" ry="6" fill="${sl}" transform="rotate(15 56 37)"/>
+      <ellipse cx="35" cy="32" rx="8" ry="5" fill="${s}" transform="rotate(-10 35 32)"/>
+      <ellipse cx="48" cy="28" rx="8" ry="5" fill="${s}" transform="rotate(10 48 28)"/>
+      <ellipse cx="40" cy="24" rx="10" ry="7" fill="${sd}"/>
+      <circle cx="32" cy="44" r="2.5" fill="#F7DC6F" opacity="0.6"/>
+      <circle cx="52" cy="34" r="2.5" fill="#F7DC6F" opacity="0.6"/>
     </svg>`;
   }
   if (streak <= 30) {
     return `<svg viewBox="0 0 80 100" class="plant-svg">
-      <ellipse cx="40" cy="92" rx="28" ry="4" fill="${c}" opacity="0.1"/>
+      <ellipse cx="40" cy="92" rx="28" ry="4" fill="${s}" opacity="0.1"/>
       <rect x="36" y="65" width="8" height="30" rx="2" fill="#8B6914"/>
       <line x1="40" y1="75" x2="28" y2="65" stroke="#8B6914" stroke-width="2.5" stroke-linecap="round"/>
       <line x1="40" y1="70" x2="55" y2="58" stroke="#8B6914" stroke-width="2.5" stroke-linecap="round"/>
-      <ellipse cx="40" cy="35" rx="22" ry="20" fill="#2E8B4A"/>
-      <ellipse cx="30" cy="40" rx="14" ry="12" fill="#3D9B5B"/>
-      <ellipse cx="52" cy="38" rx="12" ry="10" fill="#3D9B5B"/>
-      <ellipse cx="40" cy="25" rx="16" ry="13" fill="${c}"/>
-      <ellipse cx="25" cy="55" rx="10" ry="7" fill="#5DB075"/>
-      <ellipse cx="55" cy="50" rx="10" ry="7" fill="#5DB075"/>
-      <circle cx="28" cy="30" r="2" fill="#F7DC6F" opacity="0.6"/>
-      <circle cx="50" cy="25" r="2" fill="#F7DC6F" opacity="0.6"/>
-      <circle cx="38" cy="18" r="2" fill="#F7DC6F" opacity="0.6"/>
+      <ellipse cx="40" cy="35" rx="22" ry="20" fill="${s}"/>
+      <ellipse cx="30" cy="40" rx="14" ry="12" fill="${sl}"/>
+      <ellipse cx="52" cy="38" rx="12" ry="10" fill="${sl}"/>
+      <ellipse cx="40" cy="25" rx="16" ry="13" fill="${sd}"/>
+      <ellipse cx="25" cy="55" rx="10" ry="7" fill="${sl}"/>
+      <ellipse cx="55" cy="50" rx="10" ry="7" fill="${sl}"/>
+      <circle cx="28" cy="30" r="2" fill="#F7DC6F" opacity="0.5"/>
+      <circle cx="50" cy="25" r="2" fill="#F7DC6F" opacity="0.5"/>
+      <circle cx="38" cy="18" r="2" fill="#F7DC6F" opacity="0.5"/>
     </svg>`;
   }
   return `<svg viewBox="0 0 80 100" class="plant-svg">
-    <ellipse cx="40" cy="94" rx="30" ry="4" fill="${c}" opacity="0.15"/>
+    <ellipse cx="40" cy="94" rx="30" ry="4" fill="${s}" opacity="0.15"/>
     <rect x="35" y="60" width="10" height="35" rx="3" fill="#7B5B2E"/>
     <rect x="33" y="70" width="14" height="4" rx="2" fill="#8B6914" opacity="0.5"/>
     <line x1="40" y1="72" x2="24" y2="58" stroke="#7B5B2E" stroke-width="3" stroke-linecap="round"/>
     <line x1="40" y1="65" x2="58" y2="50" stroke="#7B5B2E" stroke-width="3" stroke-linecap="round"/>
     <line x1="40" y1="78" x2="22" y2="70" stroke="#7B5B2E" stroke-width="2" stroke-linecap="round"/>
-    <ellipse cx="40" cy="28" rx="28" ry="24" fill="${c}"/>
-    <ellipse cx="25" cy="35" rx="16" ry="14" fill="#2E8B4A"/>
-    <ellipse cx="55" cy="33" rx="14" ry="12" fill="#2E8B4A"/>
-    <ellipse cx="40" cy="18" rx="20" ry="15" fill="#1A5C30"/>
-    <ellipse cx="20" cy="48" rx="12" ry="9" fill="#3D9B5B"/>
-    <ellipse cx="60" cy="44" rx="12" ry="9" fill="#3D9B5B"/>
-    <ellipse cx="40" cy="10" rx="14" ry="10" fill="${c}"/>
-    <circle cx="22" cy="22" r="3" fill="#F9E04B"/>
-    <circle cx="55" cy="18" r="3" fill="#F9E04B"/>
-    <circle cx="38" cy="8" r="2.5" fill="#F9E04B"/>
-    <circle cx="18" cy="38" r="2.5" fill="#F7B7D0" opacity="0.8"/>
-    <circle cx="60" cy="28" r="2.5" fill="#F7B7D0" opacity="0.8"/>
-    <circle cx="30" cy="14" r="2" fill="#FFFFFF" opacity="0.5"/>
-    <circle cx="48" cy="12" r="2" fill="#FFFFFF" opacity="0.5"/>
-    <circle cx="15" cy="45" r="2" fill="#F9E04B" opacity="0.6"/>
-    <circle cx="62" cy="40" r="2" fill="#F9E04B" opacity="0.6"/>
+    <ellipse cx="40" cy="28" rx="28" ry="24" fill="${sd}"/>
+    <ellipse cx="25" cy="35" rx="16" ry="14" fill="${s}"/>
+    <ellipse cx="55" cy="33" rx="14" ry="12" fill="${s}"/>
+    <ellipse cx="40" cy="18" rx="20" ry="15" fill="#4A5E42"/>
+    <ellipse cx="20" cy="48" rx="12" ry="9" fill="${sl}"/>
+    <ellipse cx="60" cy="44" rx="12" ry="9" fill="${sl}"/>
+    <ellipse cx="40" cy="10" rx="14" ry="10" fill="${sd}"/>
+    <circle cx="22" cy="22" r="3" fill="#F9E04B" opacity="0.6"/>
+    <circle cx="55" cy="18" r="3" fill="#F9E04B" opacity="0.6"/>
+    <circle cx="38" cy="8" r="2.5" fill="#F9E04B" opacity="0.6"/>
+    <circle cx="18" cy="38" r="2.5" fill="#E8C4C4" opacity="0.6"/>
+    <circle cx="60" cy="28" r="2.5" fill="#E8C4C4" opacity="0.6"/>
+    <circle cx="30" cy="14" r="2" fill="#FFFFFF" opacity="0.4"/>
+    <circle cx="48" cy="12" r="2" fill="#FFFFFF" opacity="0.4"/>
   </svg>`;
 }
 
@@ -1068,7 +1097,7 @@ function calcStreak() {
   while (true) {
     const ds = `${checkDate.getFullYear()}-${String(checkDate.getMonth()+1).padStart(2,'0')}-${String(checkDate.getDate()).padStart(2,'0')}`;
     const entry = entries[ds];
-    if (entry && (entry.slots.some(s => s) || entry.reflection)) {
+    if (entry && (entry.slots.some(s => s) || entry.reflection || (entry.wins && Object.values(entry.wins).some(v => v)))) {
       streak++;
       checkDate.setDate(checkDate.getDate() - 1);
     } else {
@@ -1085,63 +1114,32 @@ function renderStreak() {
   document.getElementById('plantVisual').innerHTML = getPlantSVG(streak);
 }
 
-// ── Monthly Report ──
+function hasEntryData(entry) {
+  if (!entry) return false;
+  return entry.slots.some(s => s) || entry.reflection || (entry.wins && Object.values(entry.wins).some(v => v));
+}
+
+// Monthly Report
 function generateReport() {
   const entries = loadEntries();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const monthStr = `${currentYear} 年 ${currentMonth + 1} 月`;
 
-  const activityMap = {
-    '社群': { icon: '📱', keywords: ['社群', '貼文', 'IG', 'Instagram', 'Reels', '限動', '發文', 'po文', '排版'] },
-    '閱讀': { icon: '📖', keywords: ['閱讀', '讀書', '看書', '書'] },
-    '運動': { icon: '🏃', keywords: ['運動', '健身', '跑步', '瑜珈', '散步', '走路', '伸展', '重訓', '有氧'] },
-    '冥想': { icon: '🧘', keywords: ['冥想', '靜坐', '正念', '呼吸', '靜心'] },
-    '寫作': { icon: '✍️', keywords: ['寫作', '日記', '筆記', '寫字', '文案', '文章'] },
-    '電繪': { icon: '🎨', keywords: ['電繪', '畫畫', '畫圖', 'Procreate', '繪畫', '插畫', '畫植物', '水彩'] },
-    '學習': { icon: '📚', keywords: ['學習', '上課', '課程', '研究', '練習'] },
-    '家務': { icon: '🏠', keywords: ['打掃', '洗衣', '整理', '家務', '收納'] },
-    '煮食': { icon: '☕', keywords: ['煮咖啡', '早餐', '做飯', '烹飪', '泡茶', '下廚'] },
-    '梳洗': { icon: '🚿', keywords: ['洗澡', '梳洗', '起床', '盥洗'] },
-  };
-
   let totalDays = 0;
-  let allSlotTexts = [];
-  let activityCounts = {};
-  let activityMinutes = {};
   let maxStreak = 0, tempStreak = 0;
+  const catCounts = {};
+  WIN_CATEGORIES.forEach(c => catCounts[c.key] = 0);
 
   for (let d = 1; d <= daysInMonth; d++) {
     const ds = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const entry = entries[ds];
-    if (entry && (entry.slots.some(s => s) || entry.reflection)) {
+    if (hasEntryData(entry)) {
       totalDays++;
       tempStreak++;
       if (tempStreak > maxStreak) maxStreak = tempStreak;
-
-      const times = [];
-      const activities = [];
-      entry.slots.forEach(slot => {
-        if (!slot) return;
-        allSlotTexts.push(slot);
-        const timeMatch = slot.match(/(\d{1,2})[:：](\d{2})/);
-        const t = timeMatch ? parseInt(timeMatch[1]) * 60 + parseInt(timeMatch[2]) : null;
-        times.push(t);
-        activities.push(slot);
-      });
-
-      for (let i = 0; i < activities.length; i++) {
-        const text = activities[i];
-        let minutes = 30;
-        if (times[i] !== null && i + 1 < times.length && times[i+1] !== null) {
-          minutes = times[i+1] - times[i];
-          if (minutes <= 0) minutes = 30;
-        }
-
-        for (const [name, config] of Object.entries(activityMap)) {
-          if (config.keywords.some(kw => text.includes(kw))) {
-            activityCounts[name] = (activityCounts[name] || 0) + 1;
-            activityMinutes[name] = (activityMinutes[name] || 0) + minutes;
-          }
+      if (entry.wins) {
+        for (const [key, val] of Object.entries(entry.wins)) {
+          if (val && catCounts[key] !== undefined) catCounts[key]++;
         }
       }
     } else {
@@ -1175,48 +1173,21 @@ function generateReport() {
       </div>
     </div>`;
 
-    const sorted = Object.entries(activityCounts).sort((a, b) => b[1] - a[1]);
-    if (sorted.length > 0) {
-      const maxCount = sorted[0][1];
-      html += `<div class="report-section-title">早晨活動統計</div>`;
-      sorted.forEach(([name, count]) => {
-        const mins = activityMinutes[name] || 0;
-        const hours = Math.floor(mins / 60);
-        const remainMins = mins % 60;
-        const timeStr = hours > 0 ? `約 ${hours} 小時 ${remainMins > 0 ? remainMins + ' 分鐘' : ''}` : `約 ${remainMins} 分鐘`;
-        const pct = Math.round((count / maxCount) * 100);
-        const icon = activityMap[name]?.icon || '📌';
+    const sorted = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
+    const maxCount = sorted.length > 0 ? sorted[0][1] : 0;
 
+    html += `<div class="report-section-title">小成就類別統計</div>`;
+    if (maxCount === 0) {
+      html += `<div class="report-empty" style="padding:1rem">這個月還沒有記錄小成就。<br>在日記裡的「今日小成就」欄位填寫，月報就能幫你自動統計囉！</div>`;
+    } else {
+      sorted.forEach(([name, count]) => {
+        const pct = maxCount > 0 ? Math.round((count / maxCount) * 100) : 0;
         html += `<div class="report-bar-row">
-          <div class="report-bar-label">${icon} ${name}</div>
+          <div class="report-bar-label">${name}</div>
           <div class="report-bar-track"><div class="report-bar-fill" style="width:${pct}%"></div></div>
-          <div class="report-bar-val">${count} 次</div>
+          <div class="report-bar-val">${count} 天</div>
         </div>`;
       });
-
-      html += `<div style="margin-top:1.2rem;">`;
-      html += `<div class="report-section-title">累計時間</div>`;
-      sorted.forEach(([name, count]) => {
-        const mins = activityMinutes[name] || 0;
-        const hours = Math.floor(mins / 60);
-        const remainMins = mins % 60;
-        const timeStr = hours > 0 ? `${hours} 小時${remainMins > 0 ? ' ' + remainMins + ' 分' : ''}` : `${remainMins} 分鐘`;
-        const icon = activityMap[name]?.icon || '📌';
-        html += `<div class="report-activity">
-          <div class="report-activity-icon">${icon}</div>
-          <div class="report-activity-info">
-            <div class="report-activity-name">${name}</div>
-            <div class="report-activity-detail">共 ${count} 次</div>
-          </div>
-          <div><span class="report-activity-count">${timeStr}</span></div>
-        </div>`;
-      });
-      html += `</div>`;
-    }
-
-    if (sorted.length === 0) {
-      html += `<div class="report-section-title">早晨活動統計</div>
-        <div class="report-empty" style="padding:1rem">記錄中沒有偵測到特定活動關鍵字。<br>試試在早晨儀式欄位加入「社群」「閱讀」「運動」「冥想」「電繪」等關鍵字，月報就能幫你自動統計囉！</div>`;
     }
   }
 
@@ -1251,10 +1222,10 @@ function renderCalendar() {
   for (let d = 1; d <= daysInMonth; d++) {
     const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const isToday = today.getFullYear() === currentYear && today.getMonth() === currentMonth && today.getDate() === d;
-    const hasEntry = entries[dateStr] && (entries[dateStr].slots.some(s => s) || entries[dateStr].reflection);
+    const entry = entries[dateStr];
     const cls = ['day-cell'];
     if (isToday) cls.push('today');
-    if (hasEntry) cls.push('has-entry');
+    if (hasEntryData(entry)) cls.push('has-entry');
     html += `<div class="${cls.join(' ')}" data-date="${dateStr}">${d}</div>`;
   }
   grid.innerHTML = html;
@@ -1272,8 +1243,9 @@ function openEntry(dateStr) {
   document.getElementById('quoteText').textContent = q.text;
   document.getElementById('quoteAuthor').textContent = q.author ? `— ${q.author}` : '';
   const entries = loadEntries();
-  const entry = entries[dateStr] || { slots: ['','','',''], reflection: '' };
-  for (let i = 1; i <= 4; i++) document.getElementById('slot'+i).value = entry.slots[i-1] || '';
+  const entry = entries[dateStr] || { slots: ['','',''], wins: {}, reflection: '' };
+  for (let i = 1; i <= 3; i++) document.getElementById('slot'+i).value = entry.slots[i-1] || '';
+  renderWinsInputs(entry.wins);
   document.getElementById('reflection').value = entry.reflection || '';
   document.getElementById('calendarView').style.display = 'none';
   document.getElementById('streakCard').style.display = 'none';
@@ -1295,12 +1267,13 @@ function saveEntry() {
     slots: [
       document.getElementById('slot1').value,
       document.getElementById('slot2').value,
-      document.getElementById('slot3').value,
-      document.getElementById('slot4').value
+      document.getElementById('slot3').value
     ],
+    wins: getWinsData(),
     reflection: document.getElementById('reflection').value
   };
   saveEntries(entries);
+  pushToGist();
   const toast = document.getElementById('saveToast');
   toast.classList.add('show');
   setTimeout(() => {
@@ -1314,6 +1287,7 @@ function deleteEntry() {
   const entries = loadEntries();
   delete entries[selectedDate];
   saveEntries(entries);
+  pushToGist();
   closeEntry();
 }
 
@@ -1417,11 +1391,6 @@ async function doSync() {
   await pushToGist();
 }
 
-function saveEntriesAndSync(entries) {
-  saveEntries(entries);
-  pushToGist();
-}
-
 async function setupSync(pat) {
   const msgEl = document.getElementById('syncStatusMsg');
   msgEl.textContent = '連線中...';
@@ -1520,40 +1489,7 @@ document.getElementById('syncModal').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) closeSyncModal();
 });
 
-// Override saveEntry and deleteEntry to also sync
-const _origSaveEntry = saveEntry;
-saveEntry = function() {
-  const entries = loadEntries();
-  entries[selectedDate] = {
-    slots: [
-      document.getElementById('slot1').value,
-      document.getElementById('slot2').value,
-      document.getElementById('slot3').value,
-      document.getElementById('slot4').value
-    ],
-    reflection: document.getElementById('reflection').value
-  };
-  saveEntries(entries);
-  pushToGist();
-  const toast = document.getElementById('saveToast');
-  toast.classList.add('show');
-  setTimeout(() => {
-    toast.classList.remove('show');
-    closeEntry();
-  }, 800);
-};
-
-const _origDeleteEntry = deleteEntry;
-deleteEntry = function() {
-  if (!confirm('確定要清除這天的紀錄嗎？')) return;
-  const entries = loadEntries();
-  delete entries[selectedDate];
-  saveEntries(entries);
-  pushToGist();
-  closeEntry();
-};
-
-// Init sync on page load
+// Init sync
 (function initSync() {
   const { pat, gistId } = getSyncConfig();
   if (pat && gistId) {
